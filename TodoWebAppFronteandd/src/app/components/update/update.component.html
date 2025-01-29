@@ -1,0 +1,70 @@
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Task</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+        <th scope="col">Done?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{todoToBeUpdated.id}}</th>
+        <td> {{todoToBeUpdated.task}} </td>
+        <td>{{todoToBeUpdated.description}}</td>
+        <td>{{todoToBeUpdated.date|date}}</td>
+        <td>{{todoToBeUpdated.done}} </td>
+      </tr>
+  
+    </tbody>
+  </table>
+  
+  
+  <button type="button" class="btn btn-info" (click)="update()" >Click to update</button>
+  
+  <div *ngIf="isLoading">
+    <p>Loading...</p>
+  </div>
+  
+  <div *ngIf="!isLoading && errorMessage">
+    <p class="error">{{ errorMessage }}</p>
+  </div>
+  
+  <form *ngIf="!isLoading && !errorMessage && show" [formGroup]="updatedForm" (ngSubmit)="handelSubmitUpdate()">
+    <h2>Update Todo</h2>
+  
+    <label>
+      Task:
+      <input type="text" formControlName="task">
+      <div *ngIf="updatedForm.get('task')?.invalid && updatedForm.get('task')?.touched">
+        Task is required.
+      </div>
+    </label>
+  
+    <label>
+      Description:
+      <input type="text" formControlName="description">
+    </label>
+  
+    <label>
+      Date:
+      <input type="date" formControlName="date">
+      <div *ngIf="updatedForm.get('date')?.invalid && updatedForm.get('date')?.touched">
+        Date is required.
+      </div>
+    </label>
+  
+    <label>
+      Done:
+      <input type="checkbox" formControlName="done">
+    </label>
+  
+    <button type="submit" [disabled]="updatedForm.invalid">Submit</button>
+  </form>
+  
+    <br>
+    <br>
+    <button type="button" class="btn btn-primary" [routerLink]="['/todo']">Go Back To Homepage</button>
+  

@@ -1,0 +1,58 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Task</th>
+      <th scope="col">Description</th>
+      <th scope="col">Date</th>
+      <th scope="col">Done</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let todo of listOfTodos">
+      <th scope="row">{{todo.id}}</th>
+      <td>{{todo.task}}</td>
+      <td>{{todo.description}}</td>
+      <td>{{todo.date}}</td>
+      <td>{{todo.done}}</td>
+      <td><button type="button" class="btn btn-warning" [routerLink]="['/todo/update',todo.id]">Update</button></td>
+      <td><button type="button" class="btn btn-danger" (click)="delete(todo.id)" >Delete</button></td>    </tr>
+
+  </tbody>
+</table>
+
+
+
+<button type="button" class="btn btn-primary" (click)="showAddTodo()" >Add Todo</button>
+<br><br>
+<div *ngIf="show">
+<form [formGroup]="todoForm" (ngSubmit)="handelSubmit()">
+
+  <label>
+    Task
+    <input type="text" formControlName="task">
+  </label>
+  <br>
+
+  <label>
+    Description
+    <input type="text" formControlName="description">
+  </label>
+  <br>
+
+  <label>
+    Date
+    <input type="date" formControlName="date">
+  </label>
+  <br>
+
+  <label>
+    Done
+    <input type="checkbox" formControlName="done">
+  </label>
+  <br>
+
+  <input type="submit" value="Add This Todo">
+</form>
+</div>
